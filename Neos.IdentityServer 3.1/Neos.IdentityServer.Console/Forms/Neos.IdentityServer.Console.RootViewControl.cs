@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************************************************************************************************//
-// Copyright (c) 2023 redhook (adfsmfa@gmail.com)                                                                                                                                    //                        
+// Copyright (c) 2024 redhook (adfsmfa@gmail.com)                                                                                                                                    //                        
 //                                                                                                                                                                                          //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),                                       //
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,   //
@@ -118,17 +118,17 @@ namespace Neos.IdentityServer.Console
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.neos-sdi.com");
+            System.Diagnostics.Process.Start("redhook software");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://adfsmfa.codeplex.com");
+            System.Diagnostics.Process.Start("redhook software");
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/neos-sdi/adfsmfa/releases");
+            System.Diagnostics.Process.Start("https://github.com/redhook62/adfsmfa/releases");
         }
     }
 }

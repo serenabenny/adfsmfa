@@ -1,7 +1,8 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-  <Package Name="MFA Provider for ADFS 2022/2019/2016/2012 R2" Language="1033" Version="3.1.2312.0" Manufacturer="neos-sdi" UpgradeCode="a23dd485-5365-4d82-8309-103495000001" ProductCode="a23dd485-5365-4d82-8309-103494000001">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui" >
 
-    <SummaryInformation Description="Multi-Factor Authentication for ADFS 2022/2019/2016/2012R2" />
+  <Package Name="MFA Provider for ADFS 2025/2022/2019/2016" Language="1033" Version="3.1.2508.0" Manufacturer="redhook software" UpgradeCode="a23dd485-5365-4d82-8309-103495000001" ProductCode="a23dd485-5365-4d82-8309-103494000001">
+
+    <SummaryInformation Description="Multi-Factor Authentication for ADFS 2025/2022/2019/2016" />
 
     <MajorUpgrade DisallowUpgradeErrorMessage="A later version of [ProductName] is already installed" DowngradeErrorMessage="A later version of [ProductName] is already installed" Disallow="yes" AllowDowngrades="no" />
         
@@ -67,7 +68,7 @@
       <ComponentGroupRef Id="Neos.IdentityServer.MultiFactor.Cmdlets" />    
     </Feature>
 
-		<Feature Id="AzureFeature" Title="adfsmfa Azure Samples" Description="Neos Identity Service Samples" InstallDefault="local" TypicalDefault="install" Level="1">
+	<Feature Id="AzureFeature" Title="adfsmfa Azure Samples" Description="Neos Identity Service Samples" InstallDefault="local" TypicalDefault="install" Level="1">
       <ComponentGroupRef Id="Neos.IdentityServer.MultiFactor.Samples" />
     </Feature>
 
@@ -88,9 +89,10 @@
     <Launch Condition="Privileged" Message="This installation requires administration privileges" />
     <Launch Condition="REINSTALL=&quot;&quot;" Message="Repair not allowed, you must uninstall and reinstall" />
     <!--  <![CDATA[(WIXNETFX4RELEASEINSTALLED >= "#528040")]]> 4.8 -->
-    <Launch Condition="(WIXNETFX4RELEASEINSTALLED &gt;= &quot;#461808&quot;)" Message="This application requires .NET Framework 4.7.2 or upper. Please install the .NET Framework then run this installer again." />   
-    
-    <ui:WixUI Id="WixUI_Minimal" />
+    <Launch Condition="(WIXNETFX4RELEASEINSTALLED &gt;= &quot;#461808&quot;)" Message="This application requires .NET Framework 4.7.2 or upper. Please install the .NET Framework then run this installer again." />
+
+	<ui:WixUI Id="WixUI_Minimal" /> 
+	  
     <WixVariable Id="WixUILicenseRtf" Value="$(var.Neos.IdentityServer.MultiFactor.ProjectDir)Installer\License.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="$(var.Neos.IdentityServer.MultiFactor.ProjectDir)Installer\banner.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="$(var.Neos.IdentityServer.MultiFactor.ProjectDir)Installer\dialog.bmp" />
@@ -711,6 +713,10 @@
       <Component Id="GACDeployment684" Guid="E7173CAB-E43F-4A07-1962-018000006684" Directory="AssemblyFolder" DiskId="1" Bitness="always64">
         <File Assembly=".net" KeyPath="yes" Id="System.ValueTuple.dll" Name="System.ValueTuple.dll" Source="$(var.Neos.IdentityServer.MultiFactor.WebAuthN.Core.TargetDir)System.ValueTuple.dll" />
       </Component>
+	      <Component Id="GACDeployment685" Guid="E7173CAB-E43F-4A07-1962-018000006685" Directory="AssemblyFolder" DiskId="1" Bitness="always64">
+        <File Assembly=".net" KeyPath="yes" Id="Microsoft.Bcl.TimeProvider.dll" Name="Microsoft.Bcl.TimeProvider.dll" Source="$(var.Neos.IdentityServer.MultiFactor.WebAuthN.Core.TargetDir)Microsoft.Bcl.TimeProvider.dll" />
+      </Component>
+
     </ComponentGroup>
   </Fragment>
       

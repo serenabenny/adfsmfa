@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************************************************************************************************//
-// Copyright (c) 2023 redhook (adfsmfa@gmail.com)                                                                                                                                        //                        
+// Copyright (c) 2024 redhook (adfsmfa@gmail.com)                                                                                                                                        //                        
 //                                                                                                                                                                                          //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),                                       //
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,   //
@@ -1840,6 +1840,8 @@ namespace MFA
     [PrimaryServerRequired, ConfigurationRightsRequired, NotRemotable, AdministrationPin]
     public sealed class ExportMFASystemConfiguration : MFACmdlet
     {
+        private bool _fordebug = false;
+
         /// <summary>
         /// <para type="description">Set the name of the export file.</para>
         /// ExportFilePath property
@@ -1849,6 +1851,17 @@ namespace MFA
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// <para type="description">Disable RSA key Reset for MFA Passwords.</para>
+        /// NoRSAKeyReset property
+        /// </summary>
+        [Parameter(Mandatory = false, ParameterSetName = "Data")]
+        public SwitchParameter ForDebug
+        {
+            get { return _fordebug; }
+            set { _fordebug = value; }
         }
 
         /// <summary>
@@ -1878,7 +1891,7 @@ namespace MFA
                 {
                     PSHost hh = GetHostForVerbose();
                     ADFSServiceManager svc = ManagementService.ADFSManager;
-                    svc.ExportMFAProviderConfiguration(hh, ExportFilePath);
+                    svc.ExportMFAProviderConfiguration(hh, ExportFilePath, ForDebug);
                     this.Host.UI.WriteLine(ConsoleColor.Green, this.Host.UI.RawUI.BackgroundColor, String.Format(infos_strings.InfosSystemExported, ExportFilePath));
                 }
             }
@@ -7215,7 +7228,7 @@ namespace MFA
         /// <summary>
         /// <para type="description">ADDS LDAP path to query (dc=domain,dc=com)</para>
         /// </summary>
-        [Parameter(Mandatory = true, ParameterSetName = "Identity")]
+        [Parameter(Mandatory = false, ParameterSetName = "Identity")]
         public string LDAPFilter { get; set; } = string.Empty;
 
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************************************************************************************************//
-// Copyright (c) 2023 redhook (adfsmfa@gmail.com)                                                                                                                                        //                        
+// Copyright (c) 2024 redhook (adfsmfa@gmail.com)                                                                                                                                        //                        
 //                                                                                                                                                                                          //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),                                       //
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,   //
@@ -31,7 +31,7 @@ namespace Neos.IdentityServer.MultiFactor
     /// <summary>
     /// ReplayService class
     /// </summary>
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class ReplayService : IReplay
     {
         private static ReplayManager _manager = null;
@@ -56,6 +56,8 @@ namespace Neos.IdentityServer.MultiFactor
         public bool Check(List<string> servernames, ReplayRecord record)
         {
             bool tempresult = false;
+            if (record.ReplayLevel == ReplayLevel.Disabled)
+                return true;
             try
             {
                 lock (_lock)
@@ -162,7 +164,8 @@ namespace Neos.IdentityServer.MultiFactor
     /// <summary>
     /// WebThemeService class
     /// </summary>
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
+   // [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class WebThemeService : IWebThemeManager
     {
         private static WebThemeManager _manager = null;
@@ -343,7 +346,8 @@ namespace Neos.IdentityServer.MultiFactor
     /// <summary>
     /// WebAdminService class
     /// </summary>
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
+   // [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class WebAdminService : IWebAdminServices
     {
         private readonly WebAdminManager _manager = null;
@@ -840,7 +844,8 @@ namespace Neos.IdentityServer.MultiFactor
     /// <summary>
     /// NTService class
     /// </summary>
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
+   // [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class NTService : INTService
     {
         private static NTServiceManager _manager = null;

@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************************************************************************************************//
-// Copyright (c) 2023 redhook (adfsmfa@gmail.com)                                                                                                                                    //                        
+// Copyright (c) 2024 redhook (adfsmfa@gmail.com)                                                                                                                                    //                        
 //                                                                                                                                                                                          //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),                                       //
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,   //
@@ -103,7 +103,7 @@ namespace Neos.IdentityServer.MultiFactor.Data
             if (!SQLUtils.IsMFAUserRegistered(SQLHost, reg.UPN))
             {
                 if (caninsert)
-                    return AddMFAUser(reg, resetkey, false);
+                    return AddMFAUser(reg, resetkey, disableoninsert);
                 else
                     return GetMFAUser(reg.UPN);
             }
@@ -181,12 +181,12 @@ namespace Neos.IdentityServer.MultiFactor.Data
         /// <summary>
         /// AddMFAUser method implementation
         /// </summary>
-        public override MFAUser AddMFAUser(MFAUser reg, bool resetkey = false, bool canupdate = true, bool disableoninsert = false)
+        public override MFAUser AddMFAUser(MFAUser reg, bool resetkey = true, bool canupdate = true, bool disableoninsert = false)
         {
             if (SQLUtils.IsMFAUserRegistered(SQLHost, reg.UPN))
             {
                 if (canupdate)
-                    return SetMFAUser(reg, resetkey, false);
+                    return SetMFAUser(reg, false, disableoninsert);
                 else
                     return GetMFAUser(reg.UPN);
             }

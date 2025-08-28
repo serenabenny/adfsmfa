@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************************************************************************************************//
-// Copyright (c) 2023 redhook (adfsmfa@gmail.com)                                                                                                                                        //                        
+// Copyright (c) 2024 redhook (adfsmfa@gmail.com)                                                                                                                                        //                        
 //                                                                                                                                                                                          //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),                                       //
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,   //
@@ -417,19 +417,25 @@ namespace Neos.IdentityServer.MultiFactor
                             {
                                 default:
                                 case PreferredMethod.Code:
-                                    if (usercontext.KeyStatus == SecretKeyStatus.Success)
+                                    if (itm.IsAvailableForUser(usercontext))
                                         value = "OK";
                                     else
                                         value = "None";
                                     break;
                                 case PreferredMethod.Email:
-                                    value = Utilities.StripEmailAddress(usercontext.MailAddress);
+                                    if (itm.IsAvailableForUser(usercontext))
+                                        value = Utilities.StripEmailAddress(usercontext.MailAddress);
+                                    else
+                                        value = string.Empty;
                                     break;
                                 case PreferredMethod.External:
-                                    value = Utilities.StripPhoneNumber(usercontext.PhoneNumber);
+                                    if (itm.IsAvailableForUser(usercontext))
+                                        value = Utilities.StripPhoneNumber(usercontext.PhoneNumber);
+                                    else
+                                        value = string.Empty;
                                     break;
                                 case PreferredMethod.Biometrics:
-                                    if (usercontext.KeyStatus == SecretKeyStatus.Success) 
+                                    if (itm.IsAvailableForUser(usercontext))
                                         value = "OK";
                                     else
                                         value = "None";
@@ -608,22 +614,28 @@ namespace Neos.IdentityServer.MultiFactor
                             {
                                 default:
                                 case PreferredMethod.Code:
-                                    if (usercontext.KeyStatus == SecretKeyStatus.Success)
+                                    if (itm.IsAvailableForUser(usercontext))
                                         value = "OK";
                                     else
                                         value = "None";
                                     break;
                                 case PreferredMethod.Email:
-                                    value = Utilities.StripEmailAddress(usercontext.MailAddress);
+                                    if (itm.IsAvailableForUser(usercontext))
+                                        value = Utilities.StripEmailAddress(usercontext.MailAddress);
+                                    else
+                                        value = string.Empty;
                                     break;
                                 case PreferredMethod.External:
-                                    value = Utilities.StripPhoneNumber(usercontext.PhoneNumber);
+                                    if (itm.IsAvailableForUser(usercontext))
+                                        value = Utilities.StripPhoneNumber(usercontext.PhoneNumber);
+                                    else
+                                        value = string.Empty;
                                     break;
                                 case PreferredMethod.Biometrics:
-                                    if (usercontext.KeyStatus == SecretKeyStatus.Success) 
+                                    if (itm.IsAvailableForUser(usercontext))
                                         value = "OK";
                                     else
-                                        value = "None";
+                                        value = "None"; 
                                     break;
                             }
                             if (itm.Kind != PreferredMethod.Azure)
